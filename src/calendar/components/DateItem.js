@@ -13,8 +13,6 @@ type Props = {
 };
 
 const DateItem = ({ onDayClick, date, updateData, todo }: Props) => {
-  // const [state, setstate] = useState(initialState);
-
   const handleDragStart = (e, dateSource, id) => {
     e.dataTransfer.setData('dateSource', dateSource);
     e.dataTransfer.setData('id', id);
@@ -64,7 +62,6 @@ const DateItem = ({ onDayClick, date, updateData, todo }: Props) => {
       );
     });
   const currentDay = moment().format('D');
-  console.log('currentDay', currentDay === date);
 
   return (
     <div

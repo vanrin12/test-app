@@ -83,7 +83,6 @@ const updateData = (state, action) => {
       const currentYear = moment().format('YYYY');
       const currentMonth = moment().format('MM');
       isContainer = false;
-      console.log('tempss', temp);
 
       target = [
         ...state.calendars,
@@ -106,7 +105,6 @@ const updateData = (state, action) => {
           parseInt(dateTarget)
       )
     : target;
-  console.log('calendarTarget', calendarTarget);
 
   const listCalendars = _.unionBy(calendarSource, calendarTarget, 'date');
   return state.merge({

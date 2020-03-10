@@ -14,6 +14,9 @@ const Calendar = ({ getCalendarData, calendars, updateData }: Props) => {
     getCalendarData();
   }, []);
 
+  /**
+   * Render list day of current week
+   */
   const renderListDate = () => {
     const currentDay = moment().format('YYYY-MM-DD');
     const nthWeekOfMonth = Math.ceil(moment(currentDay).date() / 7);
