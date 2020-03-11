@@ -9,15 +9,33 @@ type Props = {
   onDayClick: Function,
   date: number,
   todo: Object,
-  updateData: Function
+  updateData: Function,
+  handleAddExcercise: Function
 };
 
-const DateItem = ({ onDayClick, date, updateData, todo }: Props) => {
+const DateItem = ({
+  onDayClick,
+  date,
+  updateData,
+  todo,
+  handleAddExcercise
+}: Props) => {
+  /**
+   *
+   * @param {e} event
+   * @param {dateSource} from date drag
+   * @param {id} id of group dragging
+   */
   const handleDragStart = (e, dateSource, id) => {
     e.dataTransfer.setData('dateSource', dateSource);
     e.dataTransfer.setData('id', id);
   };
 
+  /**
+   *
+   * @param {*ev} event
+   * @param {dateTarget} to date drop
+   */
   const onDrop = (ev, dateTarget) => {
     let dateSource = ev.dataTransfer.getData('dateSource');
     let id = ev.dataTransfer.getData('id');
@@ -28,10 +46,13 @@ const DateItem = ({ onDayClick, date, updateData, todo }: Props) => {
     ev.preventDefault();
   };
 
+  /**
+   * Render list container with date
+   */
   const renderGroupTodo =
     todo &&
     todo.groups &&
-    todo.groups.map(item => {
+    todo.groups.map((item, groupIndex) => {
       return (
         <div
           className="group-todo"
@@ -55,7 +76,10 @@ const DateItem = ({ onDayClick, date, updateData, todo }: Props) => {
             })}
           <div className="wrapper-plus-btn">
             <Button>
-              <FontAwesomeIcon icon={faPlus} />
+              <FontAwesomeIcon
+                icon={faPlus}
+                onClick={() => handleAddExcercise(date, groupIndex)}
+              />
             </Button>
           </div>
         </div>

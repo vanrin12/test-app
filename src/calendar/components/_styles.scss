@@ -21,6 +21,7 @@
     margin-right: pxToRem(10);
     border-radius: pxToRem(6);
     padding: pxToRem(10) pxToRem(10);
+    color: #728096;
   }
 
   .group-todo {
@@ -80,6 +81,7 @@
   }
 
   .current-date {
-    background-color: $blue-linght;
+    color: #6f42c1;
+    font-weight: bold;
   }
 }

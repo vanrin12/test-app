@@ -6,7 +6,8 @@ import { Creators } from '../redux';
 
 const mapStateToProps = state => {
   return {
-    calendars: state.calendarReducer.calendars
+    calendars: state.calendarReducer.calendars,
+    container: state.calendarReducer.container
   };
 };
 
@@ -15,7 +16,9 @@ const mapDispatchToProps = dispatch =>
     {
       ...Creators,
       getCalendarData: Creators.getCalendarData,
-      updateData: Creators.updateData
+      updateData: Creators.updateData,
+      addTodo: Creators.addTodo,
+      setContainerAddTodo: Creators.setContainerAddTodo
     },
     dispatch
   );

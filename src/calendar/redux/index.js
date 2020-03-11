@@ -8,12 +8,15 @@ import _ from 'lodash';
 // Define action creators
 export const { Types, Creators } = createActions({
   getCalendarData: null,
-  updateData: ['dateSource', 'dateTarget', 'id']
+  updateData: ['dateSource', 'dateTarget', 'id'],
+  addTodo: ['container', 'params'],
+  setContainerAddTodo: ['container']
 });
 
 // Initial state
 export const INITIAL_STATE = Immutable({
-  calendars: []
+  calendars: [],
+  container: {}
 });
 
 const getCalendarData = (state, action) => {
@@ -98,6 +101,7 @@ const updateData = (state, action) => {
     item =>
       parseInt(moment(item && item.date).format('D')) === parseInt(dateSource)
   );
+
   const calendarTarget = isContainer
     ? target.filter(
         item =>
@@ -106,17 +110,68 @@ const updateData = (state, action) => {
       )
     : target;
 
-  const listCalendars = _.unionBy(calendarSource, calendarTarget, 'date');
+  const listCalendars = _.xorBy(calendarSource, calendarTarget, 'date');
+
   return state.merge({
     type: action.type,
     calendars: listCalendars
   });
 };
 
+const addTodo = (state, action) => {
+  const { params, container } = action;
+
+  const excersiesNew = {
+    name: params.name,
+    quantity: params.quantity,
+    info: params.info.toString()
+  };
+
+  const calendarsAdd = state.calendars.map(calendar => {
+    if (
+      parseInt(moment(calendar.date).format('D')) === parseInt(container.date)
+    ) {
+      const newTodoList = [
+        ...calendar.groups[container.groupIndex].todoList,
+        excersiesNew
+      ];
+
+      const groupItemUpdate = {
+        ...calendar.groups[container.groupIndex],
+        todoList: newTodoList
+      };
+
+      const groupsUpdate = calendar.groups.map((item, index) => {
+        return index === container.groupIndex ? groupItemUpdate : item;
+      });
+
+      return {
+        ...calendar,
+        groups: groupsUpdate
+      };
+    }
+
+    return calendar;
+  });
+
+  return state.merge({
+    type: action.type,
+    calendars: calendarsAdd
+  });
+};
+
+const setContainerAddTodo = (state, action) => {
+  return state.merge({
+    type: action.type,
+    container: action.container
+  });
+};
 // Assign handler to types.
 const HANDLERS = {
   [Types.GET_CALENDAR_DATA]: getCalendarData,
-  [Types.UPDATE_DATA]: updateData
+  [Types.UPDATE_DATA]: updateData,
+  [Types.ADD_TODO]: addTodo,
+  [Types.SET_CONTAINER_ADD_TODO]: setContainerAddTodo
 };
 
 // Create reducers by pass state and handlers

@@ -24,8 +24,6 @@ const signIn = (state, action) => {
 };
 
 const signInSuccess = (state, action) => {
-  console.log('action', action);
-
   return state.merge({
     isProcessing: false,
     type: action.type,
