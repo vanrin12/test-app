@@ -2,7 +2,7 @@
 import React, { memo, useEffect, useState } from 'react';
 import moment from 'moment';
 import WeekDays from './WeekDays';
-import DateItem from './DateItem';
+import CalendarItem from './CalendarItem';
 import ModalPrimary from 'components/Modal';
 import FormAddTodo from './FormAddTodo';
 
@@ -53,7 +53,7 @@ const Calendar = ({
           if (parseInt(dateTodo) === d) {
             numberDays.push(d);
             daysIn.push(
-              <DateItem
+              <CalendarItem
                 date={d}
                 todo={todo}
                 onDayClick={() => {}}
@@ -66,7 +66,7 @@ const Calendar = ({
       if (!numberDays.includes(d)) {
         numberDays.push(d);
         daysIn.push(
-          <DateItem
+          <CalendarItem
             date={d}
             onDayClick={() => {}}
             updateData={updateData}

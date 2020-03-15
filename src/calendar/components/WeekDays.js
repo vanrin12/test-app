@@ -6,7 +6,7 @@ const WeekDays = () => {
   const renderDayOfWeekCalendar = moment.weekdaysShort().map(day => {
     return (
       <div key={day} className="week-day">
-        {day}
+        <p>{day}</p>
       </div>
     );
   });

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 // Components
 import PrivateRoute from 'utils/PrivateRouter';
-import HomepageContainer from 'home/containers/HomeContainer';
+// import HomepageContainer from 'home/containers/HomeContainer';
 import ROUTERS from 'constants/routers';
 import SigninContainer from 'users/containers/SigninContainer';
 import Calendar from 'calendar/containers';
@@ -27,17 +27,18 @@ const Router = ({ token }: Props) => {
           <PrivateRoute
             exact
             path={ROUTERS.ROOT}
-            component={HomepageContainer}
+            component={Calendar}
             isAuthenticated={isAuthenticated}
           />
 
           {/** calendar working on */}
-          <PrivateRoute
+          {/**
+            <PrivateRoute
             exact
             path={ROUTERS.CALENDAR}
             component={Calendar}
             isAuthenticated={isAuthenticated}
-          />
+          />*/}
         </Switch>
       </main>
     </BrowserRouter>

@@ -55,7 +55,6 @@ const updateData = (state, action) => {
         groups: calendar.groups
       };
     });
-
   let target = [];
   let isContainer = false;
   state.calendars.forEach(element => {
@@ -101,7 +100,6 @@ const updateData = (state, action) => {
     item =>
       parseInt(moment(item && item.date).format('D')) === parseInt(dateSource)
   );
-
   const calendarTarget = isContainer
     ? target.filter(
         item =>
@@ -109,12 +107,13 @@ const updateData = (state, action) => {
           parseInt(dateTarget)
       )
     : target;
-
   const listCalendars = _.xorBy(calendarSource, calendarTarget, 'date');
-
   return state.merge({
     type: action.type,
-    calendars: listCalendars
+    calendars:
+      parseInt(dateSource) !== parseInt(dateTarget)
+        ? listCalendars
+        : state.calendars
   });
 };
 

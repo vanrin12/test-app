@@ -1,6 +1,6 @@
 .calendar-page {
   background-color: $white;
-  padding-left: pxToRem(10);
+  padding: pxToRem(40);
 
   .rows {
     width: 100%;
@@ -12,13 +12,15 @@
     color: $textBody;
     text-transform: uppercase;
     font-weight: normal;
+    padding-left: pxToRem(10);
+    margin-left: pxToRem(10);
   }
 
   .date-item {
     background-color: $white-linght;
     width: 14%;
     height: 100vh;
-    margin-right: pxToRem(10);
+    margin-left: pxToRem(10);
     border-radius: pxToRem(6);
     padding: pxToRem(10) pxToRem(10);
     color: #728096;
@@ -82,7 +84,9 @@
   }
 
   .current-date {
-    color: #6f42c1;
-    font-weight: bold;
+    .date-of-week {
+      color: #5a57cb;
+      font-weight: bold;
+    }
   }
 }

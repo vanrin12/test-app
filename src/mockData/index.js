@@ -1,7 +1,10 @@
+import moment from 'moment';
+const today = new Date();
+
 export const data = {
   calendars: [
     {
-      date: '2020-03-10',
+      date: moment().format('YYYY-MM-DD'),
       groups: [
         {
           id: 0,
@@ -21,7 +24,7 @@ export const data = {
         },
         {
           id: 1,
-          title: 'Chest day with aim with mr abcddddddddddddddddd',
+          title: 'container',
           todoList: [
             {
               info: '10x lb',
@@ -33,11 +36,11 @@ export const data = {
       ]
     },
     {
-      date: '2020-03-11',
+      date: moment(today.setDate(today.getDate() + 1)).format('YYYY-MM-D'),
       groups: [
         {
           id: 0,
-          title: 'Chest day with aim with mr abcddddddddddddddddd',
+          title: 'Container 1',
           todoList: [
             {
               info: '10x lb',
@@ -54,11 +57,11 @@ export const data = {
       ]
     },
     {
-      date: '2020-03-9',
+      date: moment(today.setDate(today.getDate() + 2)).format('YYYY-MM-DD'),
       groups: [
         {
           id: 0,
-          title: 'Chest day with aim with mr abcddddddddddddddddd',
+          title: 'container 2',
           todoList: [
             {
               info: '10x lb',
@@ -75,7 +78,7 @@ export const data = {
       ]
     },
     {
-      date: '2020-03-8',
+      date: moment(today.setDate(today.getDate() + 3)).format('YYYY-MM-DD'),
       groups: [
         {
           id: 0,
@@ -117,7 +120,7 @@ export const data = {
       ]
     },
     {
-      date: '2020-03-13',
+      date: moment(today.setDate(today.getDate() + 4)).format('YYYY-MM-DD'),
       groups: [
         {
           id: 0,
@@ -133,7 +136,7 @@ export const data = {
       ]
     },
     {
-      date: '2020-03-14',
+      date: moment(today.setDate(today.getDate() - 1)).format('YYYY-MM-DD'),
       groups: [
         {
           id: 0,

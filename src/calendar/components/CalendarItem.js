@@ -13,7 +13,7 @@ type Props = {
   handleAddExcercise: Function
 };
 
-const DateItem = ({
+const CalendarItem = ({
   onDayClick,
   date,
   updateData,
@@ -98,11 +98,11 @@ const DateItem = ({
       onDrop={e => onDrop(e, date)}
       onDragOver={e => onDragOver(e)}
     >
-      {date}
+      <p className="date-of-week">{date}</p>
 
       {renderGroupTodo}
     </div>
   );
 };
 
-export default memo<Props>(DateItem);
+export default memo<Props>(CalendarItem);
