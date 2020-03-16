@@ -5,6 +5,7 @@ import WeekDays from './WeekDays';
 import CalendarItem from './CalendarItem';
 import ModalPrimary from 'components/Modal';
 import FormAddTodo from './FormAddTodo';
+import FormAddContainer from './FormAddContainer';
 
 type Props = {
   getCalendarData: Function,
@@ -12,28 +13,40 @@ type Props = {
   updateData: Function,
   addTodo: Function,
   setContainerAddTodo: Function,
-  container: Object
+  container: Object,
+  addContainer: Function
 };
+
 const Calendar = ({
   getCalendarData,
   calendars,
   updateData,
   addTodo,
   setContainerAddTodo,
-  container
+  container,
+  addContainer
 }: Props) => {
   const [isOpenAddTodo, setIsOpenAddTodo] = useState(false);
+  const [isOpenAddContainer, setIsOpenAddContainer] = useState(false);
+  const [dateClicking, setDateClicking] = useState(null);
+
   useEffect(() => {
     getCalendarData();
   }, []);
 
-  const handleAddExcercise = (date, groupIndex) => {
+  const handleAddExcercise = (date, groupIndex, event) => {
+    event.stopPropagation();
     setIsOpenAddTodo(true);
     setContainerAddTodo({ date, groupIndex });
   };
 
   const handleCloseModal = () => {
     setIsOpenAddTodo(false);
+  };
+
+  const handleClickDay = day => {
+    setIsOpenAddContainer(true);
+    setDateClicking(day);
   };
 
   /**
@@ -56,19 +69,20 @@ const Calendar = ({
               <CalendarItem
                 date={d}
                 todo={todo}
-                onDayClick={() => {}}
+                onDayClick={handleClickDay}
                 updateData={updateData}
                 handleAddExcercise={handleAddExcercise}
               />
             );
           }
         });
+
       if (!numberDays.includes(d)) {
         numberDays.push(d);
         daysIn.push(
           <CalendarItem
             date={d}
-            onDayClick={() => {}}
+            onDayClick={handleClickDay}
             updateData={updateData}
             handleAddExcercise={handleAddExcercise}
           />
@@ -100,6 +114,23 @@ const Calendar = ({
         isOpen={isOpenAddTodo}
         handleClose={() => {
           setIsOpenAddTodo(false);
+        }}
+      />
+
+      <ModalPrimary
+        title="Add Group Todo"
+        content={
+          <FormAddContainer
+            addContainer={addContainer}
+            dateClicking={dateClicking}
+            handleCloseModal={() => {
+              setIsOpenAddContainer(false);
+            }}
+          />
+        }
+        isOpen={isOpenAddContainer}
+        handleClose={() => {
+          setIsOpenAddContainer(false);
         }}
       />
     </React.Fragment>

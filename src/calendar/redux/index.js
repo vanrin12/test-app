@@ -4,13 +4,15 @@ import Immutable from 'seamless-immutable';
 import { data } from 'mockData';
 import moment from 'moment';
 import _ from 'lodash';
+import { checkContainValue } from 'utils/helpers';
 
 // Define action creators
 export const { Types, Creators } = createActions({
   getCalendarData: null,
   updateData: ['dateSource', 'dateTarget', 'id'],
   addTodo: ['container', 'params'],
-  setContainerAddTodo: ['container']
+  setContainerAddTodo: ['container'],
+  addContainer: ['groupTodo']
 });
 
 // Initial state
@@ -23,6 +25,40 @@ const getCalendarData = (state, action) => {
   return state.merge({
     type: action.type,
     calendars: data.calendars
+  });
+};
+
+const addContainer = (state, action) => {
+  const { groupTodo } = action;
+  const currentYear = moment().format('YYYY');
+  const currentMonth = moment().format('MM');
+
+  return state.merge({
+    type: action.type,
+    calendars: !checkContainValue(state.calendars, groupTodo.date)
+      ? state.calendars.concat({
+          date: `${currentYear}-${currentMonth}-${groupTodo.date}`,
+          groups: [
+            {
+              id: Math.floor(Math.random() * 100),
+              title: groupTodo.name,
+              todoList: []
+            }
+          ]
+        })
+      : state.calendars.map(calendar =>
+          parseInt(moment(calendar.date).format('DD')) ===
+          parseInt(groupTodo.date)
+            ? {
+                ...calendar,
+                groups: calendar.groups.concat({
+                  id: Math.floor(Math.random() * 100),
+                  title: groupTodo.name,
+                  todoList: []
+                })
+              }
+            : calendar
+        )
   });
 };
 
@@ -170,7 +206,8 @@ const HANDLERS = {
   [Types.GET_CALENDAR_DATA]: getCalendarData,
   [Types.UPDATE_DATA]: updateData,
   [Types.ADD_TODO]: addTodo,
-  [Types.SET_CONTAINER_ADD_TODO]: setContainerAddTodo
+  [Types.SET_CONTAINER_ADD_TODO]: setContainerAddTodo,
+  [Types.ADD_CONTAINER]: addContainer
 };
 
 // Create reducers by pass state and handlers

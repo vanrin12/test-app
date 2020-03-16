@@ -18,7 +18,8 @@ const mapDispatchToProps = dispatch =>
       getCalendarData: Creators.getCalendarData,
       updateData: Creators.updateData,
       addTodo: Creators.addTodo,
-      setContainerAddTodo: Creators.setContainerAddTodo
+      setContainerAddTodo: Creators.setContainerAddTodo,
+      addContainer: Creators.addContainer
     },
     dispatch
   );

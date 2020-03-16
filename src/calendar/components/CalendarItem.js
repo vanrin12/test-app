@@ -78,7 +78,7 @@ const CalendarItem = ({
             <Button>
               <FontAwesomeIcon
                 icon={faPlus}
-                onClick={() => handleAddExcercise(date, groupIndex)}
+                onClick={e => handleAddExcercise(date, groupIndex, e)}
               />
             </Button>
           </div>
@@ -89,8 +89,8 @@ const CalendarItem = ({
 
   return (
     <div
-      onClick={e => {
-        onDayClick(e, date);
+      onClick={() => {
+        onDayClick(date);
       }}
       className={`date-item ${
         parseInt(currentDay) === parseInt(date) ? 'current-date' : ''
